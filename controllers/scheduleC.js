@@ -2,41 +2,10 @@ const scheduleM = require("../models/scheduleM");
 
 const scheduleC = {
   getScheduleWeek: async (req, res) => {
-    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
-    const d = new Date();
-    let day = weekday[d.getDay()];
-    console.log('date',d.getDate(),d.getMonth() + 1)
-    console.log('today ',day)
-    
-    // var curr = new Date(); // get current date
-    // var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-    // var last = first + 6; // last day is the first day + 6
-
-    // var firstday = new Date(curr.setDate(first));
-    // var lastday = new Date(curr.setDate(last));
-    // const formatFirstDay =
-    //   ("0" + (firstday.getMonth() + 1)).slice(-2) +
-    //   "/" +
-    //   ("0" + firstday.getDate()).slice(-2) +
-    //   "/" +
-    //   firstday.getFullYear();
-
-    // const formatLastDay =
-    //   ("0" + (lastday.getMonth() + 1)).slice(-2) +
-    //   "/" +
-    //   ("0" + lastday.getDate()).slice(-2) +
-    //   "/" +
-    //   lastday.getFullYear();
-    // console.log('cur',curr);
-    // console.log('first',firstday);
-    // console.log('last',lastday);
-    // const data = await scheduleM.find();
-    // const findArrayWeek = data.filter(
-    //   (item) => item.date >= formatFirstDay && item.date <= formatLastDay
-    // );
-
-    // res.status(200).send(findArrayWeek);
+    const allSchedule = await scheduleM.find({})
+    const reverseArr = allSchedule.reverse();
+    const filteredSchedule = reverseArr.filter((item,i) => i <= 7 )
+    res.status(200).send(filteredSchedule)
   },
   getScheduleToday: async (req, res) => {
     const date = new Date();
