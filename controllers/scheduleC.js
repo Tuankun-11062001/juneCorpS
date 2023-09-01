@@ -19,6 +19,8 @@ const scheduleC = {
       ("0" + date.getDate()).slice(-2) +
       "/" +
       date.getFullYear();
+
+      const timezone = today.toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"})
     try {
       const scheduleToday = await scheduleM.findOne({ date: today });
       if(scheduleToday === null){
@@ -27,7 +29,7 @@ const scheduleC = {
         const customDataRes = {
           data:scheduleToday,
           message:'Get Schedule successfully!',
-          date:today
+          date:timezone
         }
         return res.status(200).send(customDataRes);
       }
