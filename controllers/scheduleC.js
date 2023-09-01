@@ -22,11 +22,12 @@ const scheduleC = {
     try {
       const scheduleToday = await scheduleM.findOne({ date: today });
       if(scheduleToday === null){
-        return res.status(200).send({message:'no schedule today',data:{}});
+        return res.status(200).send({message:'no schedule today',data:{},date:today});
       }else {
         const customDataRes = {
           data:scheduleToday,
-          message:'Get Schedule successfully!'
+          message:'Get Schedule successfully!',
+          date:today
         }
         return res.status(200).send(customDataRes);
       }
