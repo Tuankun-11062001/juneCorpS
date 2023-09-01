@@ -25,7 +25,7 @@ const scheduleC = {
         return res.status(200).send({message:'no schedule today'});
       }else {
         const customDataRes = {
-          data:[...scheduleToday],
+          data:scheduleToday,
           message:'Get Schedule successfully!'
         }
         return res.status(200).send(customDataRes);
