@@ -6,7 +6,9 @@ const scheduleC = {
     const reverseArr = allSchedule.reverse();
     const filteredSchedule = reverseArr.filter((item,i) => i <= 6 );
     const customDataSchedule = {
-      ...filteredSchedule,
+      data:{
+        ...filteredSchedule,
+      },
       message:'Get 7 days of schedule'
     }
     res.status(200).send(customDataSchedule)
@@ -25,7 +27,10 @@ const scheduleC = {
         return res.status(200).send({message:'no schedule today'});
       }else {
         const customDataRes = {
-          ...scheduleToday,
+          data:{
+            ...scheduleToday,
+          }
+          ,
           message:'Get Schedule successfully!'
         }
         return res.status(200).send(customDataRes);
