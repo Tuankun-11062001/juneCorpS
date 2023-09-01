@@ -13,23 +13,24 @@ const scheduleC = {
   },
   getScheduleToday: async (req, res) => {
     const date = new Date();
+    const nextDate = new Date(date);
+    nextDate.setDate(date.getDate() + 1);
     const today =
-      ("0" + (date.getMonth() + 1)).slice(-2) +
+      ("0" + (nextDate.getMonth() + 1)).slice(-2) +
       "/" +
-      ("0" + date.getDate()).slice(-2) +
+      ("0" + nextDate.getDate()).slice(-2) +
       "/" +
-      date.getFullYear();
-
-      const timezone = today.toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"})
+      nextDate.getFullYear();
+      
     try {
       const scheduleToday = await scheduleM.findOne({ date: today });
+      console.log(scheduleToday)
       if(scheduleToday === null){
-        return res.status(200).send({message:'no schedule today',data:{},date:today});
+        return res.status(200).send({message:'no schedule today',data:{}});
       }else {
         const customDataRes = {
           data:scheduleToday,
           message:'Get Schedule successfully!',
-          date:timezone
         }
         return res.status(200).send(customDataRes);
       }
