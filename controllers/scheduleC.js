@@ -4,8 +4,12 @@ const scheduleC = {
   getScheduleWeek: async (req, res) => {
     const allSchedule = await scheduleM.find({})
     const reverseArr = allSchedule.reverse();
-    const filteredSchedule = reverseArr.filter((item,i) => i <= 6 )
-    res.status(200).send(filteredSchedule)
+    const filteredSchedule = reverseArr.filter((item,i) => i <= 6 );
+    const customDataSchedule = {
+      ...filteredSchedule,
+      message:'Get 7 days of schedule'
+    }
+    res.status(200).send(customDataSchedule)
   },
   getScheduleToday: async (req, res) => {
     const date = new Date();
@@ -20,7 +24,11 @@ const scheduleC = {
       if(scheduleToday === null){
         return res.status(200).send({message:'no schedule today'});
       }else {
-        return res.status(200).send(scheduleToday);
+        const customDataRes = {
+          ...scheduleToday,
+          message:'Get Schedule successfully!'
+        }
+        return res.status(200).send(customDataRes);
       }
     } catch (error) {
       return res.status(200).send("somthing is error", error);
@@ -31,7 +39,7 @@ const scheduleC = {
     const newSchedule = new scheduleM(body);
     try {
       await newSchedule.save();
-      return res.status(200).send("Save schedule successfully");
+      return res.status(200).send("Create schedule successfully");
     } catch (error) {
       return res.status(200).send("can't save schedule");
     }
@@ -42,7 +50,7 @@ const scheduleC = {
     const body = req.body;
     try {
       await scheduleM.updateOne({ _id: id }, body);
-      return res.status(200).send("update successfully");
+      return res.status(200).send("Update Successfully");
     } catch (error) {
       return res.status(200).send(`can't update it ${error}`);
     }
