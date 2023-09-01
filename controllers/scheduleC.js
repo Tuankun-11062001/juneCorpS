@@ -31,7 +31,7 @@ const scheduleC = {
         return res.status(200).send(customDataRes);
       }
     } catch (error) {
-      return res.status(200).send("somthing is error", error);
+      return res.status(404).send({message:"Can't get schedule today"});
     }
   },
   createScheduleTomorrow: async (req, res) => {
@@ -39,9 +39,9 @@ const scheduleC = {
     const newSchedule = new scheduleM(body);
     try {
       await newSchedule.save();
-      return res.status(200).send("Create schedule successfully");
+      return res.status(200).send({message:"Create schedule successfully"});
     } catch (error) {
-      return res.status(200).send("can't save schedule");
+      return res.status(404).send({message:"can't save schedule"});
     }
   },
 
@@ -50,9 +50,9 @@ const scheduleC = {
     const body = req.body;
     try {
       await scheduleM.updateOne({ _id: id }, body);
-      return res.status(200).send("Update Successfully");
+      return res.status(200).send({message:"Update Successfully"});
     } catch (error) {
-      return res.status(200).send(`can't update it ${error}`);
+      return res.status(404).send({message:"Can't update schedule"});
     }
   },
 };
