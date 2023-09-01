@@ -4,7 +4,7 @@ const scheduleC = {
   getScheduleWeek: async (req, res) => {
     const allSchedule = await scheduleM.find({})
     const reverseArr = allSchedule.reverse();
-    const filteredSchedule = reverseArr.filter((item,i) => i <= 7 )
+    const filteredSchedule = reverseArr.filter((item,i) => i <= 6 )
     res.status(200).send(filteredSchedule)
   },
   getScheduleToday: async (req, res) => {
